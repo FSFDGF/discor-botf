@@ -30,23 +30,26 @@
     <div id="status" class="status offline">Checking service status...</div>
 
     <script>
-        const url = 'https://9b37cec6-557e-4abe-8f7e-10ac1becbd26-00-1q1l6sh4r3fzq.worf.repl.co:3000';
+        const url = 'https://9b37cec6-557e-4abe-8f7e-10ac1becbd26-00-1q1l6sh4r3fzq.worf.repl.co:3000/';
 
         // Function to check if the URL is online
         async function checkServiceStatus() {
             try {
-                const response = await fetch(url, { method: 'GET', mode: 'no-cors' });
-                
-                if (response.ok) {
+                const response = await fetch(url, { method: 'GET' });
+
+                // Check if the response status is OK (status code 200)
+                if (response.status === 200) {
                     document.getElementById('status').textContent = 'Service is Online';
                     document.getElementById('status').classList.remove('offline');
                     document.getElementById('status').classList.add('online');
                 } else {
+                    // If the status is not 200, it's not online
                     document.getElementById('status').textContent = 'Service is Not Online';
                     document.getElementById('status').classList.remove('online');
                     document.getElementById('status').classList.add('offline');
                 }
             } catch (error) {
+                // If there's an error (like network issues), consider the service offline
                 document.getElementById('status').textContent = 'Service is Not Online';
                 document.getElementById('status').classList.remove('online');
                 document.getElementById('status').classList.add('offline');
